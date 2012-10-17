@@ -1,3 +1,8 @@
+" TODO (2012-10-17) optional compressing of top and bottom
+" TODO (2012-10-17) optional compressing of lines -- different than 1
+" TODO (2012-10-17) patterns of behaviour -- figure out a good API
+" TODO (2012-10-17) bug with "exe normal! ..."
+" TODO (2012-10-17) undojoin doesn't work
 function! whitespaste#Paste(normal_command)
   if getregtype() == 'V'
     call s:PasteLinewise(a:normal_command)
@@ -6,6 +11,9 @@ function! whitespaste#Paste(normal_command)
   endif
 endfunction
 
+" Note: clean up after the text, then before the text to avoid problems with
+" changing line numbers lower in the buffer due to changes upper in the the
+" buffer.
 function! s:PasteLinewise(normal_command)
   exe 'normal! '.a:normal_command
 
@@ -14,16 +22,6 @@ function! s:PasteLinewise(normal_command)
 
     let first_pasted_line = line("'[")
     let last_pasted_line  = line("']")
-
-    " Clean up whitespace before pasted text
-    let target_area_start = prevnonblank(first_pasted_line - 1)
-    let pasted_area_start = nextnonblank(first_pasted_line)
-
-    if target_area_start == 0
-      call whitespaste#Compact(0, pasted_area_start, 0)
-    else
-      call whitespaste#Compact(target_area_start, pasted_area_start, 1)
-    endif
 
     " Clean up whitespace after pasted text
     let pasted_area_end = prevnonblank(last_pasted_line)
@@ -34,6 +32,16 @@ function! s:PasteLinewise(normal_command)
       call whitespaste#Compact(last_line, line('$') + 1, 0)
     else
       call whitespaste#Compact(pasted_area_end, target_area_end, 1)
+    endif
+
+    " Clean up whitespace before pasted text
+    let target_area_start = prevnonblank(first_pasted_line - 1)
+    let pasted_area_start = nextnonblank(first_pasted_line)
+
+    if target_area_start == 0
+      call whitespaste#Compact(0, pasted_area_start, 0)
+    else
+      call whitespaste#Compact(target_area_start, pasted_area_start, 1)
     endif
   finally
     call setpos('.', saved_cursor)
