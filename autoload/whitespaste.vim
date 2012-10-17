@@ -13,7 +13,7 @@ function! s:PasteLinewise(normal_command)
     let saved_cursor = getpos('.')
 
     let first_pasted_line = line("'[")
-    let last_pasted_line  = line("'[")
+    let last_pasted_line  = line("']")
 
     " Clean up whitespace before pasted text
     let target_area_start = prevnonblank(first_pasted_line - 1)
@@ -40,7 +40,7 @@ function! s:PasteLinewise(normal_command)
   endtry
 endfunction
 
-function! s:PasteCharwise()
+function! s:PasteCharwise(normal_command)
   exe 'normal! '.a:normal_command
 endfunction
 
@@ -56,7 +56,7 @@ function! whitespaste#Compact(start, end, line_count)
     undojoin
   elseif end - start > line_count
     let whitespace = repeat("\r", line_count)
-    silent exe (start + 1).','.(end - 1).'s/\_s\+/'.whitespace
+    silent exe (start + 1).','.(end - 1).'s/\_s\+\n/'.whitespace.'/e'
     undojoin
   endif
 endfunction

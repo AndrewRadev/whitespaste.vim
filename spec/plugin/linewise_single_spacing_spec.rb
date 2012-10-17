@@ -107,6 +107,24 @@ describe "Linewise: single spacing" do
       EOF
     end
 
+    it "doesn't mess up indentation on the last line" do
+      set_file_contents <<-EOF
+        one
+
+          two
+      EOF
+
+      vim.normal 'yy'
+      vim.whitespaste_after
+
+      assert_file_contents <<-EOF
+        one
+        one
+
+          two
+      EOF
+    end
+
     it "works when pasted on a blank line" do
       set_file_contents <<-EOF
         one
