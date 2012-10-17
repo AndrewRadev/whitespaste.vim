@@ -1,9 +1,13 @@
 function! whitespaste#Paste(normal_command)
-  exe 'normal! '.a:normal_command
+  if getregtype() == 'V'
+    call s:PasteLinewise(a:normal_command)
+  elseif getregtype() == 'v'
+    call s:PasteCharwise(a:normal_command)
+  endif
+endfunction
 
-  if getregtype() != 'V'
-    return
-  end
+function! s:PasteLinewise(normal_command)
+  exe 'normal! '.a:normal_command
 
   try
     let saved_cursor = getpos('.')
@@ -34,6 +38,10 @@ function! whitespaste#Paste(normal_command)
   finally
     call setpos('.', saved_cursor)
   endtry
+endfunction
+
+function! s:PasteCharwise()
+  exe 'normal! '.a:normal_command
 endfunction
 
 function! whitespaste#Compact(start, end, line_count)
