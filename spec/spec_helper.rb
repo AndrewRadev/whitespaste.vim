@@ -1,19 +1,15 @@
 require 'tmpdir'
 require 'vimrunner'
 require_relative './support/vim'
+require_relative './support/files'
 
 RSpec.configure do |config|
-  config.include Support::Vim
+  config.include Support::Files
 
   config.before(:suite) do
     VIM = Vimrunner.start_gvim
     VIM.add_plugin(File.expand_path('.'), 'plugin/whitespaste.vim')
-
-    def VIM.whitespaste
-      command 'WhitespastePaste'
-      write
-      self
-    end
+    Support::Vim.define_vim_methods(VIM)
   end
 
   config.after(:suite) do

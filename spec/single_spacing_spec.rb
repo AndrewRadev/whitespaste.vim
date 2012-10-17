@@ -4,65 +4,127 @@ describe "Single spacing" do
   let(:filename) { 'test.txt' }
   let(:vim) { @vim }
 
-  it "compresses multiple blank lines before the pasted text into a single one" do
-    set_file_contents <<-EOF
-      one
+  context "(pasting before)" do
+    it "compresses multiple blank lines before the pasted text into a single one" do
+      set_file_contents <<-EOF
+        one
 
 
-      two
-    EOF
+        two
+      EOF
 
-    vim.normal 'jy3y'
-    vim.whitespaste
-    vim.write
+      vim.normal 'jy3y'
+      vim.search 'two'
+      vim.whitespaste_before
 
-    assert_file_contents <<-EOF
-      one
+      assert_file_contents <<-EOF
+        one
 
-      two
+        two
+        two
+      EOF
+    end
 
-      two
-    EOF
+    it "compresses multiple blank lines after the pasted text into a single one" do
+      set_file_contents <<-EOF
+        one
+
+
+        two
+      EOF
+
+      vim.normal 'y3y'
+      vim.search 'two'
+      vim.whitespaste_before
+
+      assert_file_contents <<-EOF
+        one
+
+        one
+
+        two
+      EOF
+    end
+
+    it "works when pasted on a blank line" do
+      set_file_contents <<-EOF
+        one
+
+
+        two
+      EOF
+
+      vim.normal 'y2yjj'
+      vim.whitespaste_after
+
+      assert_file_contents <<-EOF
+        one
+
+        one
+
+        two
+      EOF
+    end
   end
 
-  it "compresses multiple blank lines after the pasted text into a single one" do
-    set_file_contents <<-EOF
-      one
+  context "(pasting after)" do
+    it "compresses multiple blank lines before the pasted text into a single one" do
+      set_file_contents <<-EOF
+        one
 
 
-      two
-    EOF
+        two
+      EOF
 
-    vim.normal 'yy'
-    vim.whitespaste
-    vim.write
+      vim.normal 'jy3y'
+      vim.whitespaste_after
 
-    assert_file_contents <<-EOF
-      one
-      one
+      assert_file_contents <<-EOF
+        one
 
-      two
-    EOF
-  end
+        two
 
-  it "works when pasted on a blank line" do
-    set_file_contents <<-EOF
-      one
+        two
+      EOF
+    end
+
+    it "compresses multiple blank lines after the pasted text into a single one" do
+      set_file_contents <<-EOF
+        one
 
 
-      two
-    EOF
+        two
+      EOF
 
-    vim.normal 'y2yj'
-    vim.whitespaste
-    vim.write
+      vim.normal 'yy'
+      vim.whitespaste_after
 
-    assert_file_contents <<-EOF
-      one
+      assert_file_contents <<-EOF
+        one
+        one
 
-      one
+        two
+      EOF
+    end
 
-      two
-    EOF
+    it "works when pasted on a blank line" do
+      set_file_contents <<-EOF
+        one
+
+
+        two
+      EOF
+
+      vim.normal 'y2yj'
+      vim.whitespaste_after
+
+      assert_file_contents <<-EOF
+        one
+
+        one
+
+        two
+      EOF
+    end
   end
 end

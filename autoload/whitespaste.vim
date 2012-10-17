@@ -1,6 +1,6 @@
 " TODO (2012-10-16) What if it isn't linewise?
-function! whitespaste#Paste()
-  normal! p
+function! whitespaste#Paste(normal_command)
+  exe 'normal! '.a:normal_command
 
   try
     let saved_cursor = getpos('.')
