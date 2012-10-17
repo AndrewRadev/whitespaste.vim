@@ -10,7 +10,7 @@ RSpec.configure do |config|
     VIM.add_plugin(File.expand_path('.'), 'plugin/whitespaste.vim')
 
     def VIM.whitespaste
-      normal '<Plug>Whitespaste'
+      command 'WhitespastePaste'
       write
       self
     end

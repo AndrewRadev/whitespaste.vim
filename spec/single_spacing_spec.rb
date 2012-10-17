@@ -14,6 +14,7 @@ describe "Single spacing" do
 
     vim.normal 'jy3y'
     vim.whitespaste
+    vim.write
 
     assert_file_contents <<-EOF
       one
@@ -34,9 +35,31 @@ describe "Single spacing" do
 
     vim.normal 'yy'
     vim.whitespaste
+    vim.write
 
     assert_file_contents <<-EOF
       one
+      one
+
+      two
+    EOF
+  end
+
+  it "works when pasted on a blank line" do
+    set_file_contents <<-EOF
+      one
+
+
+      two
+    EOF
+
+    vim.normal 'y2yj'
+    vim.whitespaste
+    vim.write
+
+    assert_file_contents <<-EOF
+      one
+
       one
 
       two

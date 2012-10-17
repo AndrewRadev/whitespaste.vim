@@ -65,13 +65,6 @@ describe "whitespaste#Compact" do
     end
 
     it "can reduce the whitespace to 0" do
-      vim.command 'call whitespaste#Compact(2, 4, 0)'
-      vim.write
-      assert_file_contents <<-EOF
-        one
-        two
-      EOF
-
       vim.command 'call whitespaste#Compact(2, 5, 0)'
       vim.write
       assert_file_contents <<-EOF
@@ -81,7 +74,7 @@ describe "whitespaste#Compact" do
     end
 
     it "can reduce the whitespace to 1" do
-      vim.command 'call whitespaste#Compact(2, 4, 1)'
+      vim.command 'call whitespaste#Compact(2, 5, 1)'
       vim.write
       assert_file_contents <<-EOF
         one
@@ -91,7 +84,7 @@ describe "whitespaste#Compact" do
     end
 
     it "does nothing if the given number is >= the amount of whitespace" do
-      vim.command 'call whitespaste#Compact(2, 4, 2)'
+      vim.command 'call whitespaste#Compact(2, 5, 2)'
       vim.write
       assert_file_contents <<-EOF
         one
@@ -100,7 +93,7 @@ describe "whitespaste#Compact" do
 
       EOF
 
-      vim.command 'call whitespaste#Compact(2, 4, 3)'
+      vim.command 'call whitespaste#Compact(2, 5, 3)'
       vim.write
       assert_file_contents <<-EOF
         one
