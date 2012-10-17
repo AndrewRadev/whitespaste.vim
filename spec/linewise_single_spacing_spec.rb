@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Single spacing" do
+describe "Linewise: single spacing" do
   let(:filename) { 'test.txt' }
   let(:vim) { @vim }
 

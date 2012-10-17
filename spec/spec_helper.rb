@@ -7,7 +7,7 @@ RSpec.configure do |config|
   config.include Support::Files
 
   config.before(:suite) do
-    VIM = Vimrunner.start_gvim
+    VIM = Vimrunner.start
     VIM.add_plugin(File.expand_path('.'), 'plugin/whitespaste.vim')
     Support::Vim.define_vim_methods(VIM)
   end

@@ -1,6 +1,9 @@
-" TODO (2012-10-16) What if it isn't linewise?
 function! whitespaste#Paste(normal_command)
   exe 'normal! '.a:normal_command
+
+  if getregtype() != 'V'
+    return
+  end
 
   try
     let saved_cursor = getpos('.')
