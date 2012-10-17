@@ -2,13 +2,13 @@ module Support
   module Vim
     def self.define_vim_methods(vim)
       def vim.whitespaste_before
-        command 'WhitespastePasteBefore'
+        command 'WhitespasteBefore'
         write
         self
       end
 
       def vim.whitespaste_after
-        command 'WhitespastePasteAfter'
+        command 'WhitespasteAfter'
         write
         self
       end
