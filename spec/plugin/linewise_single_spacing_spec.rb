@@ -21,7 +21,6 @@ describe "Linewise: single spacing" do
         one
 
         two
-
         two
       EOF
     end
@@ -102,7 +101,6 @@ describe "Linewise: single spacing" do
 
       assert_file_contents <<-EOF
         one
-
         one
 
         two
@@ -121,7 +119,6 @@ describe "Linewise: single spacing" do
 
       assert_file_contents <<-EOF
         one
-
         one
 
           two

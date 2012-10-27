@@ -1,8 +1,6 @@
 " TODO (2012-10-17) optional compressing of top and bottom
 " TODO (2012-10-17) optional compressing of lines -- different than 1
 " TODO (2012-10-17) patterns of behaviour -- figure out a good API
-" TODO (2012-10-17) bug with "exe normal! ..."
-" TODO (2012-10-17) undojoin doesn't work
 function! whitespaste#Paste(normal_command)
   if getregtype() == 'V'
     call s:PasteLinewise(a:normal_command)
@@ -29,9 +27,9 @@ function! s:PasteLinewise(normal_command)
 
     if target_area_end == 0
       let last_line = prevnonblank(line('$'))
-      call whitespaste#SetBlankLines(last_line, line('$') + 1, 0)
+      call whitespaste#Compress(last_line, line('$') + 1, 0)
     else
-      call whitespaste#SetBlankLines(pasted_area_end, target_area_end, 1)
+      call whitespaste#Compress(pasted_area_end, target_area_end, 1)
     endif
 
     " Clean up whitespace before pasted text
@@ -39,9 +37,9 @@ function! s:PasteLinewise(normal_command)
     let pasted_area_start = nextnonblank(first_pasted_line)
 
     if target_area_start == 0
-      call whitespaste#SetBlankLines(0, pasted_area_start, 0)
+      call whitespaste#Compress(0, pasted_area_start, 0)
     else
-      call whitespaste#SetBlankLines(target_area_start, pasted_area_start, 1)
+      call whitespaste#Compress(target_area_start, pasted_area_start, 1)
     endif
   finally
     call setpos('.', saved_cursor)
@@ -50,6 +48,17 @@ endfunction
 
 function! s:PasteCharwise(normal_command)
   exe 'normal! '.a:normal_command
+endfunction
+
+function! whitespaste#Compress(start, end, line_count)
+  let [start, end, line_count] = [a:start, a:end, a:line_count]
+  let existing_line_count      = (end - start) - 1
+
+  if existing_line_count < 0 || existing_line_count <= line_count
+    return
+  else
+    call whitespaste#SetBlankLines(start, end, line_count)
+  endif
 endfunction
 
 function! whitespaste#SetBlankLines(start, end, line_count)
