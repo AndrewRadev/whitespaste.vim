@@ -29,9 +29,9 @@ function! s:PasteLinewise(normal_command)
 
     if target_area_end == 0
       let last_line = prevnonblank(line('$'))
-      call whitespaste#Compact(last_line, line('$') + 1, 0)
+      call whitespaste#SetBlankLines(last_line, line('$') + 1, 0)
     else
-      call whitespaste#Compact(pasted_area_end, target_area_end, 1)
+      call whitespaste#SetBlankLines(pasted_area_end, target_area_end, 1)
     endif
 
     " Clean up whitespace before pasted text
@@ -39,9 +39,9 @@ function! s:PasteLinewise(normal_command)
     let pasted_area_start = nextnonblank(first_pasted_line)
 
     if target_area_start == 0
-      call whitespaste#Compact(0, pasted_area_start, 0)
+      call whitespaste#SetBlankLines(0, pasted_area_start, 0)
     else
-      call whitespaste#Compact(target_area_start, pasted_area_start, 1)
+      call whitespaste#SetBlankLines(target_area_start, pasted_area_start, 1)
     endif
   finally
     call setpos('.', saved_cursor)
@@ -52,19 +52,26 @@ function! s:PasteCharwise(normal_command)
   exe 'normal! '.a:normal_command
 endfunction
 
-function! whitespaste#Compact(start, end, line_count)
+function! whitespaste#SetBlankLines(start, end, line_count)
   let [start, end, line_count] = [a:start, a:end, a:line_count]
+  let existing_line_count      = (end - start) - 1
 
-  if end - start <= 1
+  if existing_line_count < 0
     return
   endif
 
-  if line_count == 0
+  if existing_line_count > 0 && line_count == 0
+    " delete lines
     silent exe (start + 1).','.(end - 1).'delete _'
     undojoin
-  elseif end - start > line_count
-    let whitespace = repeat("\r", line_count)
-    silent exe (start + 1).','.(end - 1).'s/\_s\+\n/'.whitespace.'/e'
+  elseif existing_line_count > line_count
+    " remove some lines
+    let delta = existing_line_count - line_count
+    silent exe (start + 1).','.(start + delta).'delete _'
+    undojoin
+  elseif existing_line_count < line_count
+    " add some lines
+    call append(start, repeat([''], line_count - existing_line_count))
     undojoin
   endif
 endfunction
