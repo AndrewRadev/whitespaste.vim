@@ -1,18 +1,15 @@
-" TODO (2012-10-17) optional compressing of top and bottom
-" TODO (2012-10-17) optional compressing of lines -- different than 1
-" TODO (2012-10-17) patterns of behaviour -- figure out a good API
 function! whitespaste#Paste(normal_command)
   if getregtype() == 'V'
-    call s:PasteLinewise(a:normal_command)
+    call whitespaste#PasteLinewise(a:normal_command)
   elseif getregtype() == 'v'
-    call s:PasteCharwise(a:normal_command)
+    call whitespaste#PasteCharwise(a:normal_command)
   endif
 endfunction
 
 " Note: clean up after the text, then before the text to avoid problems with
 " changing line numbers lower in the buffer due to changes upper in the the
 " buffer.
-function! s:PasteLinewise(normal_command)
+function! whitespaste#PasteLinewise(normal_command)
   exe 'normal! '.a:normal_command
 
   try
@@ -46,7 +43,7 @@ function! s:PasteLinewise(normal_command)
   endtry
 endfunction
 
-function! s:PasteCharwise(normal_command)
+function! whitespaste#PasteCharwise(normal_command)
   exe 'normal! '.a:normal_command
 endfunction
 
