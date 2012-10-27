@@ -37,16 +37,24 @@ function! whitespaste#PasteLinewise(normal_command)
         \   'pasted_text': getline(pasted_area_end)
         \ }
 
+  let definitions = {'top': [], 'bottom': []}
+  if exists('b:whitespaste_linewise_definitions')
+    call extend(definitions.top, b:whitespaste_linewise_definitions.top)
+    call extend(definitions.bottom, b:whitespaste_linewise_definitions.bottom)
+  endif
+  call extend(definitions.top, g:whitespaste_linewise_definitions.top)
+  call extend(definitions.bottom, g:whitespaste_linewise_definitions.bottom)
+
   try
     let saved_cursor = getpos('.')
 
-    for definition in get(g:whitespaste_linewise_definitions, 'bottom', {})
+    for definition in get(definitions, 'bottom', {})
       if s:HandleDefinition(bottom, definition, pasted_area_end, target_area_end)
         break
       endif
     endfor
 
-    for definition in get(g:whitespaste_linewise_definitions, 'top', {})
+    for definition in get(definitions, 'top', {})
       if s:HandleDefinition(top, definition, target_area_start, pasted_area_start)
         break
       endif
@@ -64,10 +72,18 @@ function! s:HandleDefinition(actual, definition, start, end)
     let definition.target_line = line('$') + 1
   endif
 
-  if has_key(definition, 'target_line') && definition.target_line != actual.target_line | return 0 | endif
-  if has_key(definition, 'target_text') && definition.target_text !~ actual.target_text | return 0 | endif
-  if has_key(definition, 'pasted_line') && definition.pasted_line != actual.pasted_line | return 0 | endif
-  if has_key(definition, 'pasted_text') && definition.pasted_text !~ actual.pasted_text | return 0 | endif
+  if has_key(definition, 'target_line') && actual.target_line != definition.target_line
+    return 0
+  endif
+  if has_key(definition, 'target_text') && actual.target_text !~ definition.target_text
+    return 0
+  endif
+  if has_key(definition, 'pasted_line') && actual.pasted_line != definition.pasted_line
+    return 0
+  endif
+  if has_key(definition, 'pasted_text') && actual.pasted_text !~ definition.pasted_text
+    return 0
+  endif
 
   if has_key(definition, 'compress_blank_lines')
     call whitespaste#CompressBlankLines(start, end, definition.compress_blank_lines)
