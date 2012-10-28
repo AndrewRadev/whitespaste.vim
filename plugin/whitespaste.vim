@@ -25,9 +25,9 @@ autocmd FileType ruby let b:whitespaste_linewise_definitions = {
       \     { 'target_text': '^\s*\%(end\|public\|private\|protected\)\>', 'blank_lines': 1 },
       \   ],
       \   'bottom': [
-      \     { 'target_text': '^\s*end\>',                             'blank_lines': 0 },
-      \     { 'target_text': '^\s*\%(def\|if\|it\)\>',                'blank_lines': 1 },
-      \     { 'target_text': '^\s*\%(public\|private\|protected\)\>', 'blank_lines': 1 },
+      \     { 'target_text': '^\s*end\>',                                    'blank_lines': 0 },
+      \     { 'target_text': '^\s*\%(def\|if\|unless\|while\|until\|it\)\>', 'blank_lines': 1 },
+      \     { 'target_text': '^\s*\%(public\|private\|protected\)\>',        'blank_lines': 1 },
       \   ]
       \ }
 
