@@ -31,6 +31,15 @@ autocmd FileType ruby let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
+autocmd FileType vim let b:whitespaste_linewise_definitions = {
+      \   'top': [
+      \     { 'target_text': '^\s*end\%(function\|while\|for\|if\)\>', 'blank_lines': 1 },
+      \   ],
+      \   'bottom': [
+      \     { 'pasted_text': '^\s*end\%(function\|while\|for\|if\)\>', 'blank_lines': 1 },
+      \   ]
+      \ }
+
 command WhitespasteBefore :call whitespaste#Paste('P')
 command WhitespasteAfter  :call whitespaste#Paste('p')
 
