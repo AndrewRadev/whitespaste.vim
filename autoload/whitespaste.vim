@@ -96,6 +96,7 @@ function! s:HandleDefinition(actual, definition, start, end)
   return 1
 endfunction
 
+" For now, just works like a normal "paste"
 function! whitespaste#PasteCharwise(normal_command)
   exe 'normal! '.a:normal_command
 endfunction

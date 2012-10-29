@@ -1,0 +1,79 @@
+==============================================================================
+CONTENTS                                      *whitespaste* *whitespaste-contents*
+
+    Installation...........................: |whitespaste-installation|
+    Usage..................................: |whitespaste-usage|
+    Settings...............................: |whitespaste-settings|
+    Internals..............................: |whitespaste-internals|
+    Issues.................................: |whitespaste-issues|
+
+
+==============================================================================
+INSTALLATION                                          *whitespaste-installation*
+
+There are several ways to install the plugin. The recommended one is by using
+Tim Pope's pathogen (http://www.vim.org/scripts/script.php?script_id=2332). In
+that case, you can clone the plugin's git repository like so:
+>
+    git clone git://github.com/AndrewRadev/whitespaste.vim.git ~/.vim/bundle/whitespaste
+<
+If your vim configuration is under git version control, you could also set up
+the repository as a submodule, which would allow you to update more easily.
+The command is (provided you're in ~/.vim):
+>
+    git submodule add git://github.com/AndrewRadev/whitespaste.vim.git bundle/whitespaste
+<
+
+Another way is to simply copy all the essential directories inside the ~/.vim
+directory: plugin, autoload, doc.
+
+
+==============================================================================
+USAGE                                                        *whitespaste-usage*
+
+This plugin provides two <Plug> mappings, <Plug>WhitespasteBefore and
+<Plug>WhitespasteAfter that are meant to be used as replacements to the |P| and
+|p| mappings respectively. To override the built-ins directly:
+>
+    nmap P <Plug>WhitespasteBefore
+    nmap p <Plug>WhitespasteAfter
+<
+If you want to assign these to other keys, just map them to whatever you like:
+>
+    nmap <leader>P <Plug>WhitespasteBefore
+    nmap <leader>p <Plug>WhitespasteAfter
+<
+
+The plugin differs from standard pasting by compressing all whitespace that
+results in a linewise paste to a single line. It also takes care of special
+cases like pasting functions/methods, if-clauses and so on. Currently, these
+special cases work only with ruby and vimscript, but see below in
+|whitespaste-extending| (TODO) to find out how you can extend the plugin for a
+different language or change it to fit your own coding style.
+
+
+==============================================================================
+EXTENDING                                                *whitespaste-extending*
+
+TODO
+
+
+==============================================================================
+SETTINGS                                                  *whitespaste-settings*
+
+TODO
+
+
+==============================================================================
+INTERNALS                                                *whitespaste-internals*
+
+TODO
+
+==============================================================================
+ISSUES                                                      *whitespaste-issues*
+
+Any issues and suggestions are very welcome on the github bugtracker:
+https://github.com/AndrewRadev/whitespaste.vim/issues
+
+
+vim:tw=78:sw=4:ft=help:norl:
