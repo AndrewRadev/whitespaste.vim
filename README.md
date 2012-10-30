@@ -75,7 +75,7 @@ something {
 }
 ```
 
-Pasting the text on any line between the curly braces sets the target lines to `something {` and `}` respectively -- the target lines are always the first non-blank lines upwards and downwards of the pasted position. Similarly, regardless of the whitespace we've pasted along with the given text, the "pasted" lines' texts will be 'puts "one"' (for the top) and 'puts "three"' (for the bottom). For this example, if we wanted the paste to always result in this, regardless of leftover blank lines:
+Pasting the text on any line between the curly braces sets the target lines to `something {` and `}` respectively -- the target lines are always the first non-blank lines upwards and downwards of the pasted position. Similarly, regardless of the whitespace we've pasted along with the given text, the "pasted" lines' texts will be `puts "one"` (for the top) and `puts "three"` (for the bottom). For this example, if we wanted the paste to always result in this, regardless of leftover blank lines:
 
 ``` vim
 something {
