@@ -107,8 +107,8 @@ This set of definitions ensures that, when pasting at the top and bottom of
 the buffer, whitespace is reduced to 0. Usually, though, you'll want to use
 "target_text" and "pasted_text".
 
-The definitions are attempted in order, which means that you should put more
-strict definitions at the top and fallbacks at the bottom.
+The definitions are attempted in order, which means that you should put
+stricter definitions at the top and fallbacks at the bottom.
 
 For an example, illustrating the "target" and "pasted" lines, let's assume
 that we've yanked the following text:

@@ -33,20 +33,15 @@ let g:whitespaste_linewise_definitions = {
 
 Each of the definitions in the list is a dictionary that can hold several different keys.
 
-    - `target_line`: If this key is set, the definition matches only for a specific line number of the area that the text is pasted in (the "target"). The special value -1 denotes the last line + 1.
-
-    - `target_text`: A pattern to match the target line's contents with.
-
-    - `pasted_line`: Only matches when the first/last nonblank line of the pasted text is positioned on this line.
-
-    - `pasted_text`: Only matches when the first/last nonblank line of the pasted text matches this pattern.
-
-    - `blank_lines`: the exact amount of blank lines to set at the top or bottom of the pasted text.
-
-    - `compress_blank_lines`: same as `blank_lines`, except only enforced if the current amount of blank lines is larger than the given number.
+- `target_line`: If this key is set, the definition matches only for a specific line number of the area that the text is pasted in (the "target"). The special value -1 denotes the last line + 1.
+- `target_text`: A pattern to match the target line's contents with.
+- `pasted_line`: Only matches when the first/last nonblank line of the pasted text is positioned on this line.
+- `pasted_text`: Only matches when the first/last nonblank line of the pasted text matches this pattern.
+- `blank_lines`: the exact amount of blank lines to set at the top or bottom of the pasted text.
+- `compress_blank_lines`: same as `blank_lines`, except only enforced if the current amount of blank lines is larger than the given number.
 
 The `target_line` and `pasted_line` keys would probably not be very useful,
-but they help in defining the edge case definitions:
+but they help with the edge case definitions:
 
 ``` vim
 let g:whitespaste_linewise_definitions = {
@@ -61,7 +56,7 @@ let g:whitespaste_linewise_definitions = {
 
 This set of definitions ensures that, when pasting at the top and bottom of the buffer, whitespace is reduced to 0. Usually, though, you'll want to use `target_text` and `pasted_text`.
 
-The definitions are attempted in order, which means that you should put more strict definitions at the top and fallbacks at the bottom.
+The definitions are attempted in order, which means that you should put stricter definitions at the top and fallbacks at the bottom.
 
 For an example, illustrating the "target" and "pasted" lines, let's assume that we've yanked the following text:
 
