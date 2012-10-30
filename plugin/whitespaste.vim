@@ -38,6 +38,7 @@ autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \     { 'target_text': '^\s*end\%(function\|while\|for\|if\)\>', 'blank_lines': 1 },
       \   ],
       \   'bottom': [
+      \     { 'target_line': -1,                                       'blank_lines': 0 },
       \     { 'pasted_text': '^\s*end\%(function\|while\|for\|if\)\>', 'blank_lines': 1 },
       \   ]
       \ }
