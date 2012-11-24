@@ -7,6 +7,8 @@ function! whitespaste#Paste(normal_command, visual)
     call whitespaste#PasteLinewise(a:normal_command)
   elseif getregtype() == 'v'
     call whitespaste#PasteCharwise(a:normal_command)
+  else
+    call whitespaste#PasteBlockwise(a:normal_command)
   endif
 endfunction
 
@@ -102,6 +104,11 @@ endfunction
 
 " For now, just works like a normal "paste"
 function! whitespaste#PasteCharwise(normal_command)
+  exe 'normal! '.a:normal_command
+endfunction
+
+" For now, just works like a normal "paste"
+function! whitespaste#PasteBlockwise(normal_command)
   exe 'normal! '.a:normal_command
 endfunction
 
