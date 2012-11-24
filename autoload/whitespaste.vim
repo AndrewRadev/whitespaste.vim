@@ -1,4 +1,8 @@
-function! whitespaste#Paste(normal_command)
+function! whitespaste#Paste(normal_command, visual)
+  if a:visual
+    normal! gv
+  endif
+
   if getregtype() == 'V'
     call whitespaste#PasteLinewise(a:normal_command)
   elseif getregtype() == 'v'

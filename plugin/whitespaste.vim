@@ -44,11 +44,13 @@ autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
-command WhitespasteBefore :call whitespaste#Paste('P')
-command WhitespasteAfter  :call whitespaste#Paste('p')
+command! -count=0 WhitespasteBefore :call whitespaste#Paste('P', <count>)
+command! -count=0 WhitespasteAfter  :call whitespaste#Paste('p', <count>)
 
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
+xmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
+xmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
