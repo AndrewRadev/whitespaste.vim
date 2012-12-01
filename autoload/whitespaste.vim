@@ -1,8 +1,4 @@
-function! whitespaste#Paste(normal_command, visual)
-  if a:visual
-    normal! gv
-  endif
-
+function! whitespaste#Paste(normal_command)
   if getregtype() == 'V'
     call whitespaste#PasteLinewise(a:normal_command)
   elseif getregtype() == 'v'
@@ -16,7 +12,7 @@ endfunction
 " changing line numbers lower in the buffer due to changes upper in the the
 " buffer.
 function! whitespaste#PasteLinewise(normal_command)
-  exe 'normal! '.a:normal_command
+  call s:Paste(a:normal_command)
 
   let first_pasted_line = line("'[")
   let last_pasted_line  = line("']")
@@ -119,12 +115,12 @@ endfunction
 
 " For now, just works like a normal "paste"
 function! whitespaste#PasteCharwise(normal_command)
-  exe 'normal! '.a:normal_command
+  call s:Paste(a:normal_command)
 endfunction
 
 " For now, just works like a normal "paste"
 function! whitespaste#PasteBlockwise(normal_command)
-  exe 'normal! '.a:normal_command
+  call s:Paste(a:normal_command)
 endfunction
 
 function! whitespaste#CompressBlankLines(start, end, line_count)
@@ -164,4 +160,8 @@ function! whitespaste#SetBlankLines(start, end, line_count)
     undojoin
     return delta
   endif
+endfunction
+
+function! s:Paste(command)
+  exe a:command
 endfunction

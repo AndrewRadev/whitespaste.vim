@@ -6,6 +6,18 @@ let g:loaded_whitespaste = '0.0.1' " version number
 let s:keepcpo = &cpo
 set cpo&vim
 
+if !exists('g:whitespaste_paste_before_command')
+  let g:whitespaste_paste_before_command = 'normal! P'
+endif
+
+if !exists('g:whitespaste_paste_after_command')
+  let g:whitespaste_paste_after_command = 'normal! p'
+endif
+
+if !exists('g:whitespaste_paste_visual_command')
+  let g:whitespaste_paste_visual_command = 'normal! gvp'
+endif
+
 if !exists('g:whitespaste_linewise_definitions')
   let g:whitespaste_linewise_definitions = {
         \   'top': [
@@ -44,13 +56,13 @@ autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
-command! -count=0 WhitespasteBefore :call whitespaste#Paste('P', <count>)
-command! -count=0 WhitespasteAfter  :call whitespaste#Paste('p', <count>)
+command!        WhitespasteBefore :call whitespaste#Paste(g:whitespaste_paste_before_command)
+command!        WhitespasteAfter  :call whitespaste#Paste(g:whitespaste_paste_after_command)
+command! -range WhitespasteVisual :call whitespaste#Paste(g:whitespaste_paste_visual_command)
 
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
-xmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
-xmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
+xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
