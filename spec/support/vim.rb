@@ -12,6 +12,12 @@ module Support
         write
         self
       end
+
+      def vim.whitespaste_visual
+        normal 'V:WhitespasteVisual<cr>'
+        write
+        self
+      end
     end
   end
 end

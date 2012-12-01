@@ -56,9 +56,9 @@ autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
-command!        WhitespasteBefore :call whitespaste#Paste(g:whitespaste_paste_before_command)
-command!        WhitespasteAfter  :call whitespaste#Paste(g:whitespaste_paste_after_command)
-command! -range WhitespasteVisual :call whitespaste#Paste(g:whitespaste_paste_visual_command)
+command! WhitespasteBefore call whitespaste#Paste(g:whitespaste_paste_before_command)
+command! WhitespasteAfter  call whitespaste#Paste(g:whitespaste_paste_after_command)
+command! -range WhitespasteVisual call whitespaste#Paste(g:whitespaste_paste_visual_command)
 
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
