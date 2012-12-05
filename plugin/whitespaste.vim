@@ -18,6 +18,14 @@ if !exists('g:whitespaste_paste_visual_command')
   let g:whitespaste_paste_visual_command = 'normal! gvp'
 endif
 
+if !exists('g:whitespaste_before_mapping')
+  let g:whitespaste_before_mapping = 'P'
+endif
+
+if !exists('g:whitespaste_after_mapping')
+  let g:whitespaste_after_mapping = 'p'
+endif
+
 if !exists('g:whitespaste_linewise_definitions')
   let g:whitespaste_linewise_definitions = {
         \   'top': [
@@ -63,6 +71,17 @@ command! -range WhitespasteVisual call whitespaste#Paste(g:whitespaste_paste_vis
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
 xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
+
+
+if g:whitespaste_before_mapping != ''
+  exe 'nmap ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
+  exe 'xmap ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
+endif
+
+if g:whitespaste_after_mapping != ''
+  exe 'nmap ' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
+  exe 'xmap ' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
+endif
 
 let &cpo = s:keepcpo
 unlet s:keepcpo

@@ -2,19 +2,19 @@ module Support
   module Vim
     def self.define_vim_methods(vim)
       def vim.whitespaste_before
-        command 'WhitespasteBefore'
+        command 'normal P'
         write
         self
       end
 
       def vim.whitespaste_after
-        command 'WhitespasteAfter'
+        command 'normal p'
         write
         self
       end
 
       def vim.whitespaste_visual
-        normal 'V:WhitespasteVisual<cr>'
+        command 'normal Vp'
         write
         self
       end
