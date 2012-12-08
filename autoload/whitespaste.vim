@@ -1,7 +1,7 @@
 function! whitespaste#Paste(normal_command)
-  if getregtype() == 'V'
+  if getregtype(v:register) == 'V'
     call whitespaste#PasteLinewise(a:normal_command)
-  elseif getregtype() == 'v'
+  elseif getregtype(v:register) == 'v'
     call whitespaste#PasteCharwise(a:normal_command)
   else
     call whitespaste#PasteBlockwise(a:normal_command)
@@ -163,5 +163,23 @@ function! whitespaste#SetBlankLines(start, end, line_count)
 endfunction
 
 function! s:Paste(command)
+  let default_register = s:DefaultRegister()
+  let original_value   = getreg(default_register, 1)
+  let original_type    = getregtype(default_register)
+
+  call setreg(default_register, getreg(v:register, 1), getregtype(v:register))
+
   exe a:command
+
+  call setreg(default_register, original_value, original_type)
+endfunction
+
+function! s:DefaultRegister()
+  if &clipboard =~ 'unnamedplus'
+    return '+'
+  elseif &clipboard =~ 'unnamed'
+    return '*'
+  else
+    return '"'
+  endif
 endfunction
