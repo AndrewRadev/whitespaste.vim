@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/AndrewRadev/whitespaste.vim.png?branch=master)](http://travis-ci.org/AndrewRadev/whitespaste.vim)
+
 ## Usage
 
 This plugin remaps the standard `p` and `P` mappings to enhance their functionality. When pasting, it compresses all blank lines that result from the paste to a single one (or none, at the top and bottom of the file). That way, even if you copy any leftover whitespace, it'll be neatly trimmed to just one line. This takes effect only for linewise pasting, since it's not entirely clear what the behaviour should be for characterwise and blockwise pasting.
