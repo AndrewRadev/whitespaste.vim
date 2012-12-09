@@ -1,20 +1,42 @@
 ## Usage
 
-This plugin provides two `<Plug>` mappings, `<Plug>WhitespasteBefore` and `<Plug>WhitespasteAfter` that are meant to be used as replacements to the `P` and `p` mappings respectively. To override the built-ins directly:
+This plugin remaps the standard `p` and `P` mappings to enhance their functionality. When pasting, it compresses all blank lines that result from the paste to a single one. That way, even if you copy any leftover whitespace, it'll be neatly trimmed to just one line. This takes effect only for linewise pasting, since it's not entirely clear what the behaviour should be for characterwise and blockwise pasting.
+
+If you don't want to clobber your default `p` and `P` mappings, you can make whitespaste use different ones by setting two predefined variables:
 
 ``` vim
-nmap P <Plug>WhitespasteBefore
-nmap p <Plug>WhitespasteAfter
+let g:whitespaste_before_mapping = ',P'
+let g:whitespaste_after_mapping  = ',p'
 ```
 
-If you want to assign these to other keys, just map them to whatever you like:
+If you need more fine-grained control, you can disable mappings altogether by Setting both of these variables to empty strings. You can then use the three provided `<Plug>` mappings for your purposes. For example:
 
 ``` vim
-nmap <leader>P <Plug>WhitespasteBefore
-nmap <leader>p <Plug>WhitespasteAfter
+let g:whitespaste_before_mapping = ''
+let g:whitespaste_after_mapping  = ''
+
+nmap ,P <Plug>WhitespasteBefore
+nmap ,p <Plug>WhitespasteAfter
+
+xmap ,P <Plug>WhitespasteVisual
+xmap ,p <Plug>WhitespasteVisual
 ```
 
-The plugin differs from standard pasting by compressing all whitespace that results in a linewise paste to a single line. It also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below to find out how you can extend the plugin for a different language or change it to fit your own coding style.
+The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "**Extending**" to find out how you can extend the plugin for a different language or change it to fit your own coding style.
+
+Whitespaste can play well with other plugins like vim-pasta. The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
+
+``` vim
+" first, disable vim-pasta's mappings
+let g:pasta_enabled_filetypes = []
+
+" then, set whitespaste's paste commands to execute vim-pasta's mappings
+let g:whitespaste_paste_before_command = "normal \<Plug>BeforePasta"
+let g:whitespaste_paste_after_command  = "normal \<Plug>AfterPasta"
+let g:whitespaste_paste_visual_command = "normal gv\<Plug>VisualPasta"
+```
+
+It's important to note that the plugin will take care of adjusting registers, so that you don't have to compensate for that in the command your provide. For example, even if you set the command to `normal! p`, you could still use whitespaste with different registers and it would work correctly.
 
 ## Extending
 
