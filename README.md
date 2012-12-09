@@ -22,7 +22,19 @@ xmap ,P <Plug>WhitespasteVisual
 xmap ,p <Plug>WhitespasteVisual
 ```
 
-The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style.
+The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style. If you're wondering how this could be useful, consider a ruby example:
+
+``` ruby
+class Test
+  def one
+  end
+
+  def two
+  end
+end
+```
+
+There's no simple way to swap these two methods' positions without having to adjust blank lines around them. Whitespaste takes care of that by detecting that a pasted block stats with a "def" line and tweaks the resulting whitespace accordingly.
 
 Whitespaste can play well with other plugins like [vim-pasta](https://github.com/sickill/vim-pasta). The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
 
