@@ -8,12 +8,13 @@ function! whitespaste#Paste(normal_command)
   endif
 endfunction
 
-" Note: clean up after the text, then before the text to avoid problems with
-" changing line numbers lower in the buffer due to changes upper in the the
-" buffer.
+" Note: clean up after the text first, then before the text to avoid problems
+" with changing line numbers lower in the buffer due to changes upper in the
+" the buffer.
 function! whitespaste#PasteLinewise(normal_command)
   call s:Paste(a:normal_command)
 
+  " Fetch the necessary information
   let first_pasted_line = line("'[")
   let last_pasted_line  = line("']")
   let target_area_start = prevnonblank(first_pasted_line - 1)
@@ -25,6 +26,7 @@ function! whitespaste#PasteLinewise(normal_command)
     let target_area_end = line('$') + 1
   endif
 
+  " Create containers with the current state of the paste
   let top = {
         \   'target_line': target_area_start,
         \   'target_text': getline(target_area_start),
@@ -39,6 +41,7 @@ function! whitespaste#PasteLinewise(normal_command)
         \   'pasted_text': getline(pasted_area_end)
         \ }
 
+  " Accumulate the user-provided definitions
   let definitions = {'top': [], 'bottom': []}
   if exists('b:whitespaste_linewise_definitions')
     call extend(definitions.top, b:whitespaste_linewise_definitions.top)
@@ -50,7 +53,8 @@ function! whitespaste#PasteLinewise(normal_command)
   try
     let saved_cursor = getpos('.')
 
-    for definition in get(definitions, 'bottom', {})
+    " Clean up bottom area and adjust for resulting changes
+    for definition in get(definitions, 'bottom')
       let [success, delta] = s:HandleDefinition(bottom, definition, pasted_area_end, target_area_end)
       if success
         let target_area_end += delta
@@ -58,7 +62,8 @@ function! whitespaste#PasteLinewise(normal_command)
       endif
     endfor
 
-    for definition in get(definitions, 'top', {})
+    " Clean up top area and adjust for resulting changes
+    for definition in get(definitions, 'top')
       let [success, delta] = s:HandleDefinition(top, definition, target_area_start, pasted_area_start)
       if success
         let pasted_area_start += delta
@@ -68,7 +73,7 @@ function! whitespaste#PasteLinewise(normal_command)
       endif
     endfor
 
-    " Restore [ and ] marks
+    " Restore [ and ] marks to the best of our ability
     let start_pos    = getpos("'[")
     let start_pos[1] = target_area_start + 1
     call setpos("'[", start_pos)
@@ -81,6 +86,11 @@ function! whitespaste#PasteLinewise(normal_command)
   endtry
 endfunction
 
+" Checks if the given a:definition matches the actual state of the paste in
+" the a:actual variable. If it does, performs the action given in the
+" definition and returns a successful result.
+"
+" Returns two values: [success, line_change].
 function! s:HandleDefinition(actual, definition, start, end)
   let [actual, definition, start, end] = [a:actual, a:definition, a:start, a:end]
 
@@ -89,6 +99,8 @@ function! s:HandleDefinition(actual, definition, start, end)
     let definition.target_line = line('$') + 1
   endif
 
+  " Return failure if the given definition matches doesn't match the actual
+  " state of the paste
   if has_key(definition, 'target_line') && actual.target_line != definition.target_line
     return [0, 0]
   endif
@@ -102,6 +114,7 @@ function! s:HandleDefinition(actual, definition, start, end)
     return [0, 0]
   endif
 
+  " The definition matches, so decide what to do
   if has_key(definition, 'compress_blank_lines')
     let line_change = whitespaste#CompressBlankLines(start, end, definition.compress_blank_lines)
   elseif has_key(definition, 'blank_lines')
@@ -123,6 +136,8 @@ function! whitespaste#PasteBlockwise(normal_command)
   call s:Paste(a:normal_command)
 endfunction
 
+" Sets the blank lines between the given a:start and a:end to be at most
+" a:line_count in number. Only decreases whitespace, never increases it.
 function! whitespaste#CompressBlankLines(start, end, line_count)
   let [start, end, line_count] = [a:start, a:end, a:line_count]
   let existing_line_count      = (end - start) - 1
@@ -134,6 +149,8 @@ function! whitespaste#CompressBlankLines(start, end, line_count)
   endif
 endfunction
 
+" Sets the blank lines between the given a:start and a:end to be exactly
+" a:line_count in number. Could increase or decrease whitespace.
 function! whitespaste#SetBlankLines(start, end, line_count)
   let [start, end, line_count] = [a:start, a:end, a:line_count]
   let existing_line_count      = (end - start) - 1
@@ -162,6 +179,9 @@ function! whitespaste#SetBlankLines(start, end, line_count)
   endif
 endfunction
 
+" Note: the purpose of storing and restoring of the default register is to
+" avoid the user having to worry about v:register when overriding the paste
+" commands.
 function! s:Paste(command)
   let default_register = s:DefaultRegister()
   let original_value   = getreg(default_register, 1)
@@ -174,6 +194,8 @@ function! s:Paste(command)
   call setreg(default_register, original_value, original_type)
 endfunction
 
+" The default register that's used when pasting depends on the 'clipboard'
+" option.
 function! s:DefaultRegister()
   if &clipboard =~ 'unnamedplus'
     return '+'
