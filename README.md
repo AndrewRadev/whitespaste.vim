@@ -9,7 +9,7 @@ let g:whitespaste_before_mapping = ',P'
 let g:whitespaste_after_mapping  = ',p'
 ```
 
-If you need more fine-grained control, you can disable mappings altogether by Setting both of these variables to empty strings. You can then use the three provided `<Plug>` mappings for your purposes. For example:
+If you need more fine-grained control, you can disable mappings altogether by setting both of these variables to empty strings. You can then use the three provided `<Plug>` mappings for your purposes. For example:
 
 ``` vim
 let g:whitespaste_before_mapping = ''
@@ -22,9 +22,9 @@ xmap ,P <Plug>WhitespasteVisual
 xmap ,p <Plug>WhitespasteVisual
 ```
 
-The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "**Extending**" to find out how you can extend the plugin for a different language or change it to fit your own coding style.
+The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style.
 
-Whitespaste can play well with other plugins like vim-pasta. The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
+Whitespaste can play well with other plugins like [vim-pasta](https://github.com/sickill/vim-pasta). The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
 
 ``` vim
 " first, disable vim-pasta's mappings
