@@ -64,6 +64,17 @@ autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
+autocmd FileType html,php,eruby,eco let b:whitespaste_linewise_definitions = {
+      \   'top': [
+      \     { 'target_text': '^\s*<\k\+[^<]*>\s*$', 'blank_lines': 0 },
+      \     { 'target_text': '^\s*</\k\+>\s*$',     'blank_lines': 1 },
+      \   ],
+      \   'bottom': [
+      \     { 'target_text': '^\s*</\k\+>\s*$',     'blank_lines': 0 },
+      \     { 'target_text': '^\s*<\k\+[^<]*>\s*$', 'blank_lines': 1 },
+      \   ]
+      \ }
+
 command! WhitespasteBefore call whitespaste#Paste(g:whitespaste_paste_before_command)
 command! WhitespasteAfter  call whitespaste#Paste(g:whitespaste_paste_after_command)
 command! -range WhitespasteVisual call whitespaste#Paste(g:whitespaste_paste_visual_command)

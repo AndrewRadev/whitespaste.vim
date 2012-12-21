@@ -196,7 +196,7 @@ The default definitions can be seen in "plugin/whitespaste.vim". At this time,
 the global definitions handle curly braces, as demonstrated in the above
 example, remove whitespace at the top and bottom of the buffer, and compress
 all other pasting operations to only one blank line. There are also specific
-definitions for ruby and vimscript.
+definitions for ruby, vimscript, and a few HTML-like filetypes.
 
 
 ==============================================================================
