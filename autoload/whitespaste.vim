@@ -189,7 +189,17 @@ function! s:Paste(command)
 
   call setreg(default_register, getreg(v:register, 1), getregtype(v:register))
 
-  exe a:command
+  if v:count >= 1
+    " we've been given a count, repeat v:count times
+    let repeat = v:count
+  else
+    " no count, just run once
+    let repeat = 1
+  endif
+
+  for i in range(repeat)
+    exe a:command
+  endfor
 
   call setreg(default_register, original_value, original_type)
 endfunction

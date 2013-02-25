@@ -75,8 +75,8 @@ autocmd FileType html,php,eruby,eco let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
-command! WhitespasteBefore call whitespaste#Paste(g:whitespaste_paste_before_command)
-command! WhitespasteAfter  call whitespaste#Paste(g:whitespaste_paste_after_command)
+command! -count WhitespasteBefore call whitespaste#Paste(g:whitespaste_paste_before_command)
+command! -count WhitespasteAfter  call whitespaste#Paste(g:whitespaste_paste_after_command)
 command! -range WhitespasteVisual call whitespaste#Paste(g:whitespaste_paste_visual_command)
 
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
