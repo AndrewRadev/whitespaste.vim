@@ -187,19 +187,19 @@ function! s:Paste(command)
   let original_value   = getreg(default_register, 1)
   let original_type    = getregtype(default_register)
 
-  call setreg(default_register, getreg(v:register, 1), getregtype(v:register))
-
   if v:count >= 1
     " we've been given a count, repeat v:count times
-    let repeat = v:count
+    let times = v:count
   else
     " no count, just run once
-    let repeat = 1
+    let times = 1
   endif
 
-  for i in range(repeat)
-    exe a:command
-  endfor
+  let value = getreg(v:register, 1)
+  let value = repeat(value, times)
+  call setreg(default_register, value, getregtype(v:register))
+
+  exe a:command
 
   call setreg(default_register, original_value, original_type)
 endfunction

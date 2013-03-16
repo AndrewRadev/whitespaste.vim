@@ -4,18 +4,41 @@ describe "compatibility with normal pasting" do
   let(:filename) { 'test.txt' }
   let(:vim) { @vim }
 
-  it "respects pasting with a count" do
+  it "respects pasting after with a count" do
     set_file_contents <<-EOF
       one
+      two
     EOF
 
-    vim.command("call feedkeys('yy2p')")
+    vim.command("call feedkeys('yj2p')")
     vim.write
 
     assert_file_contents <<-EOF
       one
       one
+      two
       one
+      two
+      two
+    EOF
+  end
+
+  it "respects pasting before with a count" do
+    set_file_contents <<-EOF
+      one
+      two
+    EOF
+
+    vim.command("call feedkeys('yj2P')")
+    vim.write
+
+    assert_file_contents <<-EOF
+      one
+      two
+      one
+      two
+      one
+      two
     EOF
   end
 
