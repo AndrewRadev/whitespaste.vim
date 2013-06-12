@@ -29,12 +29,14 @@ endif
 if !exists('g:whitespaste_linewise_definitions')
   let g:whitespaste_linewise_definitions = {
         \   'top': [
-        \     { 'target_line': 0,       'blank_lines': 0 },
-        \     { 'target_text': '{\s*$', 'blank_lines': 0 },
+        \     { 'target_line': 0,           'blank_lines': 0 },
+        \     { 'target_text': '^\s*}\s*$', 'pasted_text': '{\s*$', 'blank_lines': 1 },
+        \     { 'target_text': '{\s*$',     'blank_lines': 0 },
         \     { 'compress_blank_lines': 1 },
         \   ],
         \   'bottom': [
         \     { 'target_line': -1,          'blank_lines': 0 },
+        \     { 'target_text': '{\s*$',     'pasted_text': '^\s*}\s*$', 'blank_lines': 1 },
         \     { 'target_text': '^\s*}\s*$', 'blank_lines': 0 },
         \     { 'compress_blank_lines': 1 },
         \   ]
