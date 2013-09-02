@@ -1,3 +1,5 @@
+*whitespaste.txt*	Auto-adjust number of blank lines when pasting
+
 ==============================================================================
 CONTENTS                                      *whitespaste* *whitespaste-contents*
 
