@@ -36,7 +36,29 @@ class Test
 end
 ```
 
-There's no simple way to swap these two methods' positions without having to adjust blank lines around them. Whitespaste takes care of that by detecting that a pasted block stats with a "def" line and tweaks the resulting whitespace accordingly.
+There's no simple way to swap these two methods' positions without having to adjust blank lines around them. For instance, if you delete the `two` method definition completely (with its surrounding whitespace) and try to paste it above, you'd end up with:
+
+``` ruby
+class Test
+
+  def two
+  end
+  def one
+  end
+end
+```
+
+Whitespaste takes care of that by detecting that a pasted block stats with a "def" line and tweaks the resulting whitespace accordingly, so the above example is automatically corrected to:
+
+``` ruby
+class Test
+  def two
+  end
+
+  def one
+  end
+end
+```
 
 Whitespaste can play well with other plugins like [vim-pasta](https://github.com/sickill/vim-pasta). The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
 
