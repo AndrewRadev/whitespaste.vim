@@ -8,6 +8,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
+    rake (10.1.1)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -24,5 +25,6 @@ PLATFORMS
 
 DEPENDENCIES
   pry
+  rake
   rspec
   vimrunner
