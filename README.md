@@ -4,6 +4,8 @@
 
 This plugin remaps the standard `p` and `P` mappings to enhance their functionality. When pasting, it compresses all blank lines that result from the paste to a single one (or none, at the top and bottom of the file). That way, even if you copy any leftover whitespace, it'll be neatly trimmed to just one line. This takes effect only for linewise pasting, since it's not entirely clear what the behaviour should be for characterwise and blockwise pasting.
 
+### Mappings
+
 If you don't want to clobber your default `p` and `P` mappings, you can make whitespaste use different ones by setting two predefined variables:
 
 ``` vim
@@ -23,6 +25,8 @@ nmap ,p <Plug>WhitespasteAfter
 xmap ,P <Plug>WhitespasteVisual
 xmap ,p <Plug>WhitespasteVisual
 ```
+
+### Special cases
 
 The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style. If you're wondering how this could be useful, consider a ruby example:
 
@@ -59,6 +63,8 @@ class Test
   end
 end
 ```
+
+### Compatibility
 
 Whitespaste can play well with other plugins like [vim-pasta](https://github.com/sickill/vim-pasta). The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
 
