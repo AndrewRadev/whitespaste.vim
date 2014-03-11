@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "vimscript support" do
   let(:filename) { 'test.vim' }
-  let(:vim) { @vim }
 
   specify "functions" do
     set_file_contents <<-EOF

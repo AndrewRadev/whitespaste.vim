@@ -1,28 +1,23 @@
 require 'vimrunner'
-require 'vimrunner/testing'
+require 'vimrunner/rspec'
 require_relative './support/vim'
 require_relative './support/files'
 
 RSpec.configure do |config|
-  config.include Vimrunner::Testing
   config.include Support::Files
+end
 
-  config.before(:suite) do
-    VIM = Vimrunner.start_gvim
-    VIM.add_plugin(File.expand_path('.'), 'plugin/whitespaste.vim')
-    Support::Vim.define_vim_methods(VIM)
-  end
+Vimrunner::RSpec.configure do |config|
+  config.reuse_server = true
 
-  config.after(:suite) do
-    VIM.kill
-  end
+  plugin_path = File.expand_path('.')
 
-  # cd into a temporary directory for every example.
-  config.around do |example|
-    @vim = VIM
+  config.start_vim do
+    vim = Vimrunner.start
 
-    tmpdir(@vim) do
-      example.call
-    end
+    vim.add_plugin(plugin_path, 'plugin/whitespaste.vim')
+    Support::Vim.define_vim_methods(vim)
+
+    vim
   end
 end

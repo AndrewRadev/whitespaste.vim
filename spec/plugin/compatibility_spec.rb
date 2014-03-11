@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "compatibility with normal pasting" do
   let(:filename) { 'test.txt' }
-  let(:vim) { @vim }
 
   it "respects pasting after with a count" do
     set_file_contents <<-EOF

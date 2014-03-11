@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "global" do
   let(:filename) { 'test.js' }
-  let(:vim) { @vim }
 
   specify "curly brackets" do
     set_file_contents <<-EOF

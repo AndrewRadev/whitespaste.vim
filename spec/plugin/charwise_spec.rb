@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "Charwise" do
   let(:filename) { 'test.txt' }
-  let(:vim) { @vim }
 
   context "(pasting before)" do
     it "doesn't interfere with characterwise pasting" do

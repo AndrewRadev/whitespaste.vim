@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "ruby support" do
   let(:filename) { 'test.rb' }
-  let(:vim) { @vim }
 
   specify "methods" do
     set_file_contents <<-EOF

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "whitespaste#SetBlankLines" do
   let(:filename) { 'test.txt' }
-  let(:vim) { @vim }
 
   context "(in the beginning of the file)" do
     before :each do

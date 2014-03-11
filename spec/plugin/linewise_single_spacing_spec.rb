@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "Linewise: single spacing" do
   let(:filename) { 'test.txt' }
-  let(:vim) { @vim }
 
   context "(pasting before)" do
     it "compresses multiple blank lines before the pasted text into a single one" do
