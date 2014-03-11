@@ -1,3 +1,30 @@
+function! whitespaste#PasteBeforeCommand()
+  let vim_pasta_command = s:VimPastaCommand('before')
+  if vim_pasta_command != ''
+    return vim_pasta_command
+  endif
+
+  return g:whitespaste_paste_before_command
+endfunction
+
+function! whitespaste#PasteAfterCommand()
+  let vim_pasta_command = s:VimPastaCommand('after')
+  if vim_pasta_command != ''
+    return vim_pasta_command
+  endif
+
+  return g:whitespaste_paste_after_command
+endfunction
+
+function! whitespaste#PasteVisualCommand()
+  let vim_pasta_command = s:VimPastaCommand('visual')
+  if vim_pasta_command != ''
+    return vim_pasta_command
+  endif
+
+  return g:whitespaste_paste_visual_command
+endfunction
+
 function! whitespaste#Paste(normal_command)
   if getregtype(v:register) == 'V'
     call whitespaste#PasteLinewise(a:normal_command)
@@ -213,5 +240,42 @@ function! s:DefaultRegister()
     return '*'
   else
     return '"'
+  endif
+endfunction
+
+" Returns the vim-pasta command for the given type ("before", "after",
+" "visual"). If Vim-pasta is not installed or disabled for this filetype,
+" returns ''.
+"
+" Note that this is basically a copy-paste of vim-pasta's filetype handling
+" logic.
+"
+function! s:VimPastaCommand(type)
+  " is this explicitly disabled?
+  if !g:whitespaste_vim_pasta_enabled
+    return ""
+  endif
+
+  " is vim-pasta loaded?
+  if !exists('g:loaded_pasta')
+    return ""
+  endif
+
+  " does vim-pasta affect this filetype?
+  if exists("g:pasta_enabled_filetypes")
+    if index(g:pasta_enabled_filetypes, &ft) == -1
+      return ""
+    endif
+  elseif exists("g:pasta_disabled_filetypes") &&
+       \ index(g:pasta_disabled_filetypes, &ft) != -1
+    return ""
+  endif
+
+  if a:type == 'before'
+    return "<Plug>BeforePasta"
+  elseif a:type == 'after'
+    return "<Plug>AfterPasta"
+  elseif a:type == 'visual'
+    return "<Plug>VisualPasta"
   endif
 endfunction

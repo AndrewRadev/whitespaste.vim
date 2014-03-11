@@ -6,6 +6,10 @@ let g:loaded_whitespaste = '0.2.0' " version number
 let s:keepcpo = &cpo
 set cpo&vim
 
+if !exists('g:whitespaste_vim_pasta_enabled')
+  let g:whitespaste_vim_pasta_enabled = 1
+endif
+
 if !exists('g:whitespaste_paste_before_command')
   let g:whitespaste_paste_before_command = 'normal! P'
 endif
@@ -77,14 +81,13 @@ autocmd FileType html,php,eruby,eco let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
-command! -count WhitespasteBefore call whitespaste#Paste(g:whitespaste_paste_before_command)
-command! -count WhitespasteAfter  call whitespaste#Paste(g:whitespaste_paste_after_command)
-command! -range WhitespasteVisual call whitespaste#Paste(g:whitespaste_paste_visual_command)
+command! -count WhitespasteBefore call whitespaste#Paste(whitespaste#PasteBeforeCommand())
+command! -count WhitespasteAfter  call whitespaste#Paste(whitespaste#PasteAfterCommand())
+command! -range WhitespasteVisual call whitespaste#Paste(whitespaste#PasteVisualCommand())
 
 nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
 xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
-
 
 if g:whitespaste_before_mapping != ''
   exe 'nmap ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
