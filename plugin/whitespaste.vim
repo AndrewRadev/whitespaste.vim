@@ -6,20 +6,8 @@ let g:loaded_whitespaste = '0.2.0' " version number
 let s:keepcpo = &cpo
 set cpo&vim
 
-if !exists('g:whitespaste_vim_pasta_enabled')
-  let g:whitespaste_vim_pasta_enabled = 1
-endif
-
-if !exists('g:whitespaste_paste_before_command')
-  let g:whitespaste_paste_before_command = 'normal! P'
-endif
-
-if !exists('g:whitespaste_paste_after_command')
-  let g:whitespaste_paste_after_command = 'normal! p'
-endif
-
-if !exists('g:whitespaste_paste_visual_command')
-  let g:whitespaste_paste_visual_command = 'normal! gvp'
+if !exists('g:whitespaste_pasta_enabled')
+  let g:whitespaste_pasta_enabled = 1
 endif
 
 if !exists('g:whitespaste_before_mapping')

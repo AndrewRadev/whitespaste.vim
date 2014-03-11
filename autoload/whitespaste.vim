@@ -4,7 +4,7 @@ function! whitespaste#PasteBeforeCommand()
     return vim_pasta_command
   endif
 
-  return g:whitespaste_paste_before_command
+  return 'normal! P'
 endfunction
 
 function! whitespaste#PasteAfterCommand()
@@ -13,7 +13,7 @@ function! whitespaste#PasteAfterCommand()
     return vim_pasta_command
   endif
 
-  return g:whitespaste_paste_after_command
+  return 'normal! p'
 endfunction
 
 function! whitespaste#PasteVisualCommand()
@@ -22,7 +22,7 @@ function! whitespaste#PasteVisualCommand()
     return vim_pasta_command
   endif
 
-  return g:whitespaste_paste_visual_command
+  return 'normal! gvp'
 endfunction
 
 function! whitespaste#Paste(normal_command)
@@ -252,7 +252,7 @@ endfunction
 "
 function! s:VimPastaCommand(type)
   " is this explicitly disabled?
-  if !g:whitespaste_vim_pasta_enabled
+  if !g:whitespaste_pasta_enabled
     return ""
   endif
 

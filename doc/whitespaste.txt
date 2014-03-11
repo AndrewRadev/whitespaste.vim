@@ -65,22 +65,12 @@ vimscript, but see below in |whitespaste-extending| to find out how you can
 extend the plugin for a different language or change it to fit your own coding
 style.
 
-Whitespaste can play well with other plugins like vim-pasta. The underlying
-paste command that is being executed is available as a global variable and can
-be changed. For example, here's how you could combine whitespaste with vim-pasta:
+Whitespaste automatically integrates with the vim-pasta plugin
+(https://github.com/sickill/vim-pasta). If you want to disable this, you can
+do it like so:
 >
-    " first, disable vim-pasta's mappings
-    let g:pasta_enabled_filetypes = []
-
-    " then, set whitespaste's paste commands to execute vim-pasta's mappings
-    let g:whitespaste_paste_before_command = "normal \<Plug>BeforePasta"
-    let g:whitespaste_paste_after_command  = "normal \<Plug>AfterPasta"
-    let g:whitespaste_paste_visual_command = "normal gv\<Plug>VisualPasta"
+    let g:whitespaste_pasta_enabled = 0
 <
-It's important to note that the plugin will take care of adjusting registers,
-so that you don't have to compensate for that in the command your provide. For
-example, even if you set the command to "normal! p", you could still use
-whitespaste with different registers and it would work correctly.
 
 
 ==============================================================================
@@ -218,30 +208,17 @@ whitespaste. By default, they're "P" and "p" respectively, so they override
 the built-in mappings. Set them to empty strings to avoid setting any mappings
 by the plugin.
 
-                                            *g:whitespaste_paste_before_command*
-                                            *g:whitespaste_paste_after_command*
-                                            *g:whitespaste_paste_visual_command*
+                                            *g:whitespaste_pasta_enabled*
 >
-    let g:whitespaste_paste_before_command = 'normal! ]P'
-    let g:whitespaste_paste_after_command  = 'normal! ]p'
-    let g:whitespaste_paste_visual_command = 'normal! gvp'
+    let g:whitespaste_pasta_enabled = 0
 <
 
-Default values:
-    g:whitespaste_paste_before_command == 'normal! P'
-    g:whitespaste_paste_after_command  == 'normal! p'
-    g:whitespaste_paste_visual_command == 'normal! gvp'
+Default value:
 
-These variables allow customization of the underlying paste operation. You can
-set them to any command you like. To perform a mapping, you should probably
-use |normal|, so if you're unfamiliar with it, please read the related help
-files. In most cases, "normal!" should be preferred in order to avoid infinite
-recursion.
+    g:whitespaste_pasta_enabled == 1
 
-Note that the visual command is not executed in a visual mode context, so you
-should either use |gv| to enter the last visual mode, or rely on the '<,'>
-range in your command.
-
+This variable lets you disable the built-in vim-pasta integration if you want
+to, for whatever reason.
 
 ==============================================================================
 ISSUES                                                      *whitespaste-issues*
