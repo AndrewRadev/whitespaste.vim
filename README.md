@@ -66,19 +66,11 @@ end
 
 ### Compatibility
 
-Whitespaste can play well with other plugins like [vim-pasta](https://github.com/sickill/vim-pasta). The underlying paste command that is being executed is available as a global variable and can be changed. For example, here's how you could combine whitespaste with vim-pasta:
+Whitespaste automatically integrates with the [vim-pasta](https://github.com/sickill/vim-pasta) plugin. If you want to disable this, you can do it like so:
 
 ``` vim
-" first, disable vim-pasta's mappings
-let g:pasta_enabled_filetypes = []
-
-" then, set whitespaste's paste commands to execute vim-pasta's mappings
-let g:whitespaste_paste_before_command = "normal \<Plug>BeforePasta"
-let g:whitespaste_paste_after_command  = "normal \<Plug>AfterPasta"
-let g:whitespaste_paste_visual_command = "normal gv\<Plug>VisualPasta"
+let g:whitespaste_pasta_enabled = 0
 ```
-
-It's important to note that the plugin will take care of adjusting registers, so that you don't have to compensate for that in the command your provide. For example, even if you set the command to `normal! p`, you could still use whitespaste with different registers and it would work correctly.
 
 ## Extending
 
