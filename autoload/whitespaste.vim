@@ -261,6 +261,11 @@ function! s:VimPastaCommand(type)
     return ""
   endif
 
+  " do we have an actual filetype?
+  if &ft == ''
+    return ""
+  endif
+
   " does vim-pasta affect this filetype?
   if exists("g:pasta_enabled_filetypes")
     if index(g:pasta_enabled_filetypes, &ft) == -1
