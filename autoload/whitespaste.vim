@@ -281,6 +281,6 @@ function! s:VimPastaCommand(type)
   elseif a:type == 'after'
     return "<Plug>AfterPasta"
   elseif a:type == 'visual'
-    return "<Plug>VisualPasta"
+    return "gv<Plug>VisualPasta"
   endif
 endfunction
