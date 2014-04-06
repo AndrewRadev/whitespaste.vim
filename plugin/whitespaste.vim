@@ -37,12 +37,12 @@ endif
 
 autocmd FileType python let b:whitespaste_linewise_definitions = {
       \  'top': [
-      \     { 'target_line': 0,     'blank_lines': 0 },
-      \     { 'pasted_text': '^\S', 'blank_lines': 2 },
+      \     { 'target_line': 0,                    'blank_lines': 0 },
+      \     { 'pasted_text': '^\%(def\|class\)\>', 'blank_lines': 2 },
       \  ],
       \  'bottom': [
-      \     { 'target_line': -1,    'blank_lines': 0 },
-      \     { 'target_text': '^\S', 'blank_lines': 2 },
+      \     { 'target_line': -1,                   'blank_lines': 0 },
+      \     { 'target_text': '^\%(def\|class\)\>', 'blank_lines': 2 },
       \  ],
       \ }
 
