@@ -35,6 +35,17 @@ if !exists('g:whitespaste_linewise_definitions')
         \ }
 endif
 
+autocmd FileType python let b:whitespaste_linewise_definitions = {
+      \  'top': [
+      \     { 'target_line': 0,     'blank_lines': 0 },
+      \     { 'pasted_text': '^\S', 'blank_lines': 2 },
+      \  ],
+      \  'bottom': [
+      \     { 'target_line': -1,    'blank_lines': 0 },
+      \     { 'target_text': '^\S', 'blank_lines': 2 },
+      \  ],
+      \ }
+
 autocmd FileType ruby let b:whitespaste_linewise_definitions = {
       \   'top': [
       \     { 'target_text': '^\s*\%(class\|def\|if\|it\)\>',              'blank_lines': 0 },
