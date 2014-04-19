@@ -88,15 +88,19 @@ nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
 xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
 
-if g:whitespaste_before_mapping != ''
-  exe 'nmap ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
-  exe 'xmap ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
-endif
+augroup Whitespaste
+  autocmd!
 
-if g:whitespaste_after_mapping != ''
-  exe 'nmap ' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
-  exe 'xmap ' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
-endif
+  if g:whitespaste_before_mapping != ''
+    autocmd FileType * exe 'nmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
+    autocmd FileType * exe 'xmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
+  endif
+
+  if g:whitespaste_after_mapping != ''
+    autocmd FileType * exe 'nmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
+    autocmd FileType * exe 'xmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
+  endif
+augroup END
 
 let &cpo = s:keepcpo
 unlet s:keepcpo

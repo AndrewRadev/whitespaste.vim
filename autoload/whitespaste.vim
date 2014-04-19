@@ -277,10 +277,12 @@ function! s:VimPastaCommand(type)
   endif
 
   if a:type == 'before'
-    return "<Plug>BeforePasta"
+    return "normal \<Plug>BeforePasta"
   elseif a:type == 'after'
-    return "<Plug>AfterPasta"
+    return "normal \<Plug>AfterPasta"
   elseif a:type == 'visual'
-    return "gv<Plug>VisualPasta"
+    return "normal gv\<Plug>VisualPasta"
+  else
+    return ""
   endif
 endfunction
