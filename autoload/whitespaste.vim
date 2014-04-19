@@ -214,21 +214,31 @@ function! s:Paste(command)
   let original_value   = getreg(default_register, 1)
   let original_type    = getregtype(default_register)
 
-  if v:count >= 1
-    " we've been given a count, repeat v:count times
-    let times = v:count
-  else
-    " no count, just run once
-    let times = 1
-  endif
+  try
+    if v:count >= 1
+      " we've been given a count, repeat v:count times
+      let times = v:count
+    else
+      " no count, just run once
+      let times = 1
+    endif
 
-  let value = getreg(v:register, 1)
-  let value = repeat(value, times)
-  call setreg(default_register, value, getregtype(v:register))
+    if v:register == '_'
+      " could happen due to leftover _ from deletion...
+      let register = s:DefaultRegister()
+    else
+      let register = v:register
+    endif
 
-  exe a:command
+    let value = getreg(register, 1)
+    let value = repeat(value, times)
+    call setreg(default_register, value, getregtype(register))
 
-  call setreg(default_register, original_value, original_type)
+    exe a:command
+
+  finally
+    silent call setreg(default_register, original_value, original_type)
+  endtry
 endfunction
 
 " The default register that's used when pasting depends on the 'clipboard'
