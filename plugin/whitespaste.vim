@@ -92,15 +92,31 @@ augroup Whitespaste
   autocmd!
 
   if g:whitespaste_before_mapping != ''
-    autocmd FileType * exe 'nmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
-    autocmd FileType * exe 'xmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
+    autocmd FileType * call s:SetupBeforeMapping()
   endif
 
   if g:whitespaste_after_mapping != ''
-    autocmd FileType * exe 'nmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
-    autocmd FileType * exe 'xmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
+    autocmd FileType * call s:SetupAfterMapping()
   endif
 augroup END
+
+function! s:SetupBeforeMapping()
+  if !&modifiable
+    return
+  endif
+
+  exe 'nmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
+  exe 'xmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
+endfunction
+
+function! s:SetupAfterMapping()
+  if !&modifiable
+    return
+  endif
+
+  exe 'nmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
+  exe 'xmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
+endfunction
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
