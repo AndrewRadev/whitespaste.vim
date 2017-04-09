@@ -58,6 +58,17 @@ autocmd FileType ruby let b:whitespaste_linewise_definitions = {
       \   ]
       \ }
 
+autocmd FileType elixir let b:whitespaste_linewise_definitions = {
+      \   'top': [
+      \     { 'target_text': '^\s*\%(def\%(module\|p\)\=\|if\|cond\|case\)\>', 'blank_lines': 0 },
+      \     { 'target_text': '^\s*end\>',                                      'blank_lines': 1 },
+      \   ],
+      \   'bottom': [
+      \     { 'target_text': '^\s*end\>',                      'blank_lines': 0 },
+      \     { 'target_text': '^\s*\%(def\|if\|cond\|case\)\>', 'blank_lines': 1 },
+      \   ]
+      \ }
+
 autocmd FileType vim let b:whitespaste_linewise_definitions = {
       \   'top': [
       \     { 'target_text': '^\s*end\%(function\|while\|for\|if\)\>', 'blank_lines': 1 },
