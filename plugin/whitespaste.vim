@@ -99,6 +99,12 @@ nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
 nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
 xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
 
+if g:whitespaste_pasta_enabled
+  " Disable vim-pasta, if it happens to be loaded after whitespaste
+  let g:pasta_paste_after_mapping = '<Plug>Disabled'
+  let g:pasta_paste_before_mapping = '<Plug>Disabled'
+endif
+
 augroup Whitespaste
   autocmd!
 
