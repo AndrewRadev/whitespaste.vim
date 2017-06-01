@@ -71,6 +71,10 @@ do it like so:
 >
     let g:whitespaste_pasta_enabled = 0
 <
+In the process, it needs to disable vim-pasta's mappings, so it sets them to
+the fake mapping "<Plug>Disabled". If you encounter any issues with the
+combination between these two plugins, please open a github issue and explain
+your setup.
 
 
 ==============================================================================
