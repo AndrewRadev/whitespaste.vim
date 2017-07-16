@@ -118,18 +118,16 @@ augroup Whitespaste
 augroup END
 
 function! s:SetupBeforeMapping()
-  if !&modifiable
-    return
-  endif
+  if !&modifiable | return | endif
+  if exists('b:whitespaste_disable') | return | endif
 
   exe 'nmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
   exe 'xmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
 endfunction
 
 function! s:SetupAfterMapping()
-  if !&modifiable
-    return
-  endif
+  if !&modifiable | return | endif
+  if exists('b:whitespaste_disable') | return | endif
 
   exe 'nmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
   exe 'xmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'

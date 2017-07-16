@@ -65,6 +65,11 @@ vimscript, but see below in |whitespaste-extending| to find out how you can
 extend the plugin for a different language or change it to fit your own coding
 style.
 
+If you'd like to disable the special behaviour for a particular filetype (or
+possibly create your own, custom `p` mapping for a filetype, you can set the
+buffer-local |b:whitespaste_disable| variable. This will disable whitespaste
+for this buffer only.
+
 Whitespaste automatically integrates with the vim-pasta plugin
 (https://github.com/sickill/vim-pasta). If you want to disable this, you can
 do it like so:
@@ -212,7 +217,7 @@ whitespaste. By default, they're "P" and "p" respectively, so they override
 the built-in mappings. Set them to empty strings to avoid setting any mappings
 by the plugin.
 
-                                            *g:whitespaste_pasta_enabled*
+                                                   *g:whitespaste_pasta_enabled*
 >
     let g:whitespaste_pasta_enabled = 0
 <
@@ -223,6 +228,29 @@ Default value:
 
 This variable lets you disable the built-in vim-pasta integration if you want
 to, for whatever reason.
+
+                                                         *b:whitespaste_disable*
+>
+    let b:whitespaste_disable = 1
+<
+
+Default value: unset
+
+If you set this variable to anything at all for a particular buffer, the
+plugin will not define `p` mappings for it. This would be necessary if you
+want to create your own custom `p` mapping, or if you don't want this filetype
+to be affected by whitespaste.
+
+For instance, to disable pasting in quickfix buffers (which doesn't work
+anyway, because they're not modifiable), you can create the file
+`~/.vim/ftplugin/qf.vim`, and place the following in it:
+>
+    let b:whitespaste_disable = 1
+<
+You can then create your own special mapping, if you'd like. Whitespaste will
+still work for other filetypes.
+
+
 
 ==============================================================================
 ISSUES                                                      *whitespaste-issues*
