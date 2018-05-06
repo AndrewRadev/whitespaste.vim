@@ -71,11 +71,11 @@ function! whitespaste#PasteLinewise(normal_command)
   " Accumulate the user-provided definitions
   let definitions = {'top': [], 'bottom': []}
   if exists('b:whitespaste_linewise_definitions')
-    call extend(definitions.top, b:whitespaste_linewise_definitions.top)
-    call extend(definitions.bottom, b:whitespaste_linewise_definitions.bottom)
+    call extend(definitions.top, deepcopy(b:whitespaste_linewise_definitions.top))
+    call extend(definitions.bottom, deepcopy(b:whitespaste_linewise_definitions.bottom))
   endif
-  call extend(definitions.top, g:whitespaste_linewise_definitions.top)
-  call extend(definitions.bottom, g:whitespaste_linewise_definitions.bottom)
+  call extend(definitions.top, deepcopy(g:whitespaste_linewise_definitions.top))
+  call extend(definitions.bottom, deepcopy(g:whitespaste_linewise_definitions.bottom))
 
   try
     let saved_cursor = getpos('.')
