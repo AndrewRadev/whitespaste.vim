@@ -121,6 +121,9 @@ function! s:SetupBeforeMapping()
   if !&modifiable | return | endif
   if exists('b:whitespaste_disable') | return | endif
 
+  " Hack: Disable mappings for CtrlP.vim
+  if exists('g:loaded_ctrlp') && bufname('%') == 'ControlP' | return | endif
+
   exe 'nmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteBefore'
   exe 'xmap <buffer> ' . g:whitespaste_before_mapping . ' <Plug>WhitespasteVisual'
 endfunction
@@ -128,6 +131,9 @@ endfunction
 function! s:SetupAfterMapping()
   if !&modifiable | return | endif
   if exists('b:whitespaste_disable') | return | endif
+
+  " Hack: Disable mappings for CtrlP.vim
+  if exists('g:loaded_ctrlp') && bufname('%') == 'ControlP' | return | endif
 
   exe 'nmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteAfter'
   exe 'xmap <buffer>' . g:whitespaste_after_mapping . ' <Plug>WhitespasteVisual'
