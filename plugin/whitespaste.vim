@@ -95,9 +95,9 @@ command! -count WhitespasteBefore call whitespaste#Paste(whitespaste#PasteBefore
 command! -count WhitespasteAfter  call whitespaste#Paste(whitespaste#PasteAfterCommand())
 command! -range WhitespasteVisual call whitespaste#Paste(whitespaste#PasteVisualCommand())
 
-nmap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
-nmap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
-xmap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
+nnoremap <Plug>WhitespasteBefore :WhitespasteBefore<cr>
+nnoremap <Plug>WhitespasteAfter  :WhitespasteAfter<cr>
+xnoremap <Plug>WhitespasteVisual :WhitespasteVisual<cr>
 
 if g:whitespaste_pasta_enabled
   " Disable vim-pasta, if it happens to be loaded after whitespaste
