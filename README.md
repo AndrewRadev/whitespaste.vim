@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/AndrewRadev/whitespaste.vim.png?branch=master)](http://travis-ci.org/AndrewRadev/whitespaste.vim)
+[![Build Status](https://secure.travis-ci.org/AndrewRadev/whitespaste.vim.svg?branch=main)](http://travis-ci.org/AndrewRadev/whitespaste.vim)
 
 ## Screencast
 
@@ -173,4 +173,4 @@ The default definitions can be seen in `plugin/whitespaste.vim`. At this time, t
 
 ## Contributing
 
-Pull requests are welcome, but take a look at [CONTRIBUTING.md](https://github.com/AndrewRadev/whitespaste.vim/blob/master/CONTRIBUTING.md) first for some guidelines.
+Pull requests are welcome, but take a look at [CONTRIBUTING.md](https://github.com/AndrewRadev/whitespaste.vim/blob/main/CONTRIBUTING.md) first for some guidelines.
