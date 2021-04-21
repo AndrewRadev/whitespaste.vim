@@ -25,7 +25,7 @@ function! whitespaste#PasteVisualCommand()
   return 'normal! gvp'
 endfunction
 
-function! whitespaste#Paste(normal_command)
+function! whitespaste#Paste(normal_command) abort
   if getregtype(v:register) == 'V'
     call whitespaste#PasteLinewise(a:normal_command)
   elseif getregtype(v:register) == 'v'
