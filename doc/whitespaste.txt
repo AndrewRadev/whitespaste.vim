@@ -60,10 +60,10 @@ provided <Plug> mappings for your purposes. For example:
     xmap ,p <Plug>WhitespasteVisual
 <
 The plugin also takes care of special cases like pasting functions/methods,
-if-clauses and so on. Currently, these special cases work only with ruby and
-vimscript, but see below in |whitespaste-extending| to find out how you can
-extend the plugin for a different language or change it to fit your own coding
-style.
+if-clauses and so on. Currently, these special cases work only with ruby,
+python, elixir, and vimscript, but see below in |whitespaste-extending| to
+find out how you can extend the plugin for a different language or change it
+to fit your own coding style.
 
 If you'd like to disable the special behaviour for a particular filetype (or
 possibly create your own, custom `p` mapping for a filetype, you can set the

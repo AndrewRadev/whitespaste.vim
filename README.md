@@ -1,5 +1,3 @@
-[![Build Status](https://secure.travis-ci.org/AndrewRadev/whitespaste.vim.svg?branch=main)](http://travis-ci.org/AndrewRadev/whitespaste.vim)
-
 ## Screencast
 
 If you'd like a visual demonstration of the plugin, you can find a screencast
@@ -33,7 +31,7 @@ xmap ,p <Plug>WhitespasteVisual
 
 ### Special cases
 
-The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style. If you're wondering how this could be useful, consider a ruby example:
+The plugin also takes care of special cases like pasting functions/methods, if-clauses and so on. Currently, these special cases work only with ruby, python, elixir, and vimscript, but see below in "Extending" to find out how you can extend the plugin for a different language or change it to fit your own coding style. If you're wondering how this could be useful, consider a ruby example:
 
 ``` ruby
 class Test
@@ -173,4 +171,4 @@ The default definitions can be seen in `plugin/whitespaste.vim`. At this time, t
 
 ## Contributing
 
-Pull requests are welcome, but take a look at [CONTRIBUTING.md](https://github.com/AndrewRadev/whitespaste.vim/blob/main/CONTRIBUTING.md) first for some guidelines.
+Pull requests are welcome, as long as they did not involve LLM usage. Take a look at [CONTRIBUTING.md](./CONTRIBUTING.md) for details. Be sure to abide by the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) as well.
